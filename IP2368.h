@@ -223,7 +223,7 @@ public:
     void setMaxOutputPower(Vbus1OutputPower power);
 
     // TypeC_CTL8
-    void setTypeCMode(IP2368::TypeCMode mode);
+    void setTypeCMode(TypeCMode mode);
 
     // TypeC_CTL9
 
