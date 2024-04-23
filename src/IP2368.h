@@ -248,6 +248,10 @@ public:
 
     void enableSrcPdo(bool en9VPdo, bool en12VPdo, bool en15VPdo, bool en20VPdo, bool enPps1Pdo, bool enPps2Pdo);
 
+    // SOC_CAP_DATA
+
+    void setBatteryPercentage(uint8_t battery_level);
+
     // MOS_STATE
     bool isVbusMosStateOpen();
 

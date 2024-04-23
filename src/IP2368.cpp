@@ -888,6 +888,11 @@ uint8_t IP2368::getBatteryPercentage()
     return readRegister(IP2368_REG_SOC_CAP_DATA);
 }
 
+void IP2368::setBatteryPercentage(uint8_t battery_level)
+{
+    writeRegister(IP2368_REG_SOC_CAP_DATA, battery_level);
+}
+
 // STATE_CTL0
 
 bool IP2368::isCharging()
