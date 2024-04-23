@@ -93,6 +93,7 @@ uint8_t IP2368::writeRegister(uint8_t regAddress, uint8_t value)
         // Serial.println(errorCode);
         return -1;
     }
+    return 0;
 #else
     return -1;
 #endif
