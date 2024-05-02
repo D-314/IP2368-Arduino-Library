@@ -154,6 +154,17 @@ public:
     bool isVbusSinkQcActive();
     bool isVbusSrcQcActive();
 
+    // MOS_STATE
+    bool isVbusMosStateOpen();
+
+    // STATE_CTL3
+
+    bool isVsysOverCurrent();
+    bool isVsysSdortCircuitDt();
+
+    // ADC
+    bool isOverHeat();
+
     ///////// SET ////////
 
     // SYS_CTL0
@@ -251,17 +262,6 @@ public:
     // SOC_CAP_DATA
 
     void setBatteryPercentage(uint8_t battery_level);
-
-    // MOS_STATE
-    bool isVbusMosStateOpen();
-
-    // STATE_CTL3
-
-    bool isVsysOverCurrent();
-    bool isVsysSdortCircuitDt();
-
-    // ADC
-    bool isOverHeat();
 
     ///////// GET ////////
 
