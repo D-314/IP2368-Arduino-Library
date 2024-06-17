@@ -1,4 +1,5 @@
 #include "IP2368.h"
+#include <Arduino.h>
 
 // Registers
 
