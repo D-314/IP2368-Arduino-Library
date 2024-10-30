@@ -6,18 +6,29 @@
 IP2368 chip; // Initialize the chip with default I2C address
 
 void setup() {
-  Serial.begin(921600); // Start the serial communication
+  Serial.begin(115200); // Start the serial communication
+
+  Wire.setClock(100000);
+
   chip.begin();       // Initialize the chip
 
+  delay(100);
+
   //Optionally, configure the chip as needed
+  chip.ResetMCU(true);
+  delay(100);
   chip.enableLoadOTP(false);
+  chip.enableCharger(true);
+  chip.enableBatteryTypeSetting(true);
   chip.enableCurrentOrPowerSettingMode(true);
+  chip.enablePowerOrCurrentSetting(true);
+  delay(100);
   chip.setCurrentOrPowerSettingMode(IP2368::InputPower);
   if (chip.isPowerOrCurrentSettingEnabled())
   {
     if (chip.getPowerOrCurrentSettingMode() == IP2368::InputPower) 
     {
-      chip.setMaxInputPowerOrBatteryCurrent(100); //100W
+      chip.setMaxInputPowerOrBatteryCurrent(60); //100W
     }
     else if (chip.getPowerOrCurrentSettingMode() == IP2368::BatteryCurrent)
     {
@@ -26,7 +37,7 @@ void setup() {
   }
 
   chip.setTypeCMode(IP2368::UFP);
-
+  
   chip.enableFullChargeVoltageSetting(true);
   chip.setFullChargeCapacity(8500);
   chip.setBatteryPercentage(50);
@@ -82,26 +93,25 @@ void loop() {
            "System Status:\n"
            "Load One Time Programmable (OTP) Enabled: %d\n"
            "Charger Enabled: %d\n"
-           "Battery Type Setting Enabled: %d\n"
-           "Power or Current Setting Mode Enabled: %d\n"
-           "Power or Current Setting Mode: %s\n"
-           "Power or Current Setting Enabled: %d\n",
+           "Battery Type Setting: [%s] %s\n"
+           "Power or Current Setting Mode: [%s] %s [%s]",
            chip.isLoadOTPEnabled(),
            chip.isChargerEnabled(),
-           chip.isBatteryTypeSettingEnabled(),
-           chip.isCurrentOrPowerSettingModeEnabled(),
+           chip.isBatteryTypeSettingEnabled() ? "EN" : "Disabled" ,
+           toString(chip.getBatteryType()),
+           chip.isCurrentOrPowerSettingModeEnabled() ? "EN" : "Disabled" ,
            toString(chip.getPowerOrCurrentSettingMode()),
-           chip.isPowerOrCurrentSettingEnabled());
+           chip.isPowerOrCurrentSettingEnabled() ? "EN" : "Disabled" );
 
   // Добавление данных в буфер в зависимости от режима
   if (chip.getPowerOrCurrentSettingMode() == IP2368::InputPower) {
     snprintf(buffer + strlen(buffer), sizeof(buffer) - strlen(buffer),
-             "%s: %.2f W\n",
+             "(%.2f W)\n",
              toString(chip.getPowerOrCurrentSettingMode()),
              (float)chip.getMaxInputPowerOrBatteryCurrent());
   } else {
     snprintf(buffer + strlen(buffer), sizeof(buffer) - strlen(buffer),
-             "%s: %.2f A\n",
+             "(%.2f A)\n",
              toString(chip.getPowerOrCurrentSettingMode()),
              (float)chip.getMaxInputPowerOrBatteryCurrent() / 1000);
   }
