@@ -23,20 +23,20 @@ void setup() {
   chip.enableCurrentOrPowerSettingMode(true);
   chip.enablePowerOrCurrentSetting(true);
   delay(100);
-  chip.setCurrentOrPowerSettingMode(IP2368::InputPower);
+  chip.setCurrentOrPowerSettingMode(IP2368::CurrentSettingMode::InputPower);
   if (chip.isPowerOrCurrentSettingEnabled())
   {
-    if (chip.getPowerOrCurrentSettingMode() == IP2368::InputPower) 
+    if (chip.getPowerOrCurrentSettingMode() == IP2368::CurrentSettingMode::InputPower) 
     {
       chip.setMaxInputPowerOrBatteryCurrent(60); //100W
     }
-    else if (chip.getPowerOrCurrentSettingMode() == IP2368::BatteryCurrent)
+    else if (chip.getPowerOrCurrentSettingMode() == IP2368::CurrentSettingMode::BatteryCurrent)
     {
       chip.setMaxInputPowerOrBatteryCurrent(5000); //5A
     }
   }
 
-  chip.setTypeCMode(IP2368::UFP);
+  chip.setTypeCMode(IP2368::TypeCMode::UFP);
   
   chip.enableFullChargeVoltageSetting(true);
   chip.setFullChargeCapacity(8500);
@@ -49,38 +49,38 @@ void setup() {
 // Helper functions to convert enums to strings
 const char* toString(IP2368::BatteryType type) {
   switch (type) {
-    case IP2368::LiFePO4: return "LiFePO4";
-    case IP2368::LiIon: return "LiIon";
+    case IP2368::BatteryType::LiFePO4: return "LiFePO4";
+    case IP2368::BatteryType::LiIon: return "LiIon";
     default: return "Unknown";
   }
 }
 
 const char* toString(IP2368::ChargeState state) {
   switch (state) {
-    case IP2368::STANDBY: return "Standby";
-    case IP2368::TRICKLE_CHARGE: return "Trickle Charge";
-    case IP2368::CONSTANT_CURRENT: return "Constant Current";
-    case IP2368::CONSTANT_VOLTAGE: return "Constant Voltage";
-    case IP2368::CHARGE_WAIT: return "Charge Wait";
-    case IP2368::CHARGE_FULL: return "Charge Full";
-    case IP2368::CHARGE_TIMEOUT: return "Charge Timeout";
+    case IP2368::ChargeState::STANDBY: return "Standby";
+    case IP2368::ChargeState::TRICKLE_CHARGE: return "Trickle Charge";
+    case IP2368::ChargeState::CONSTANT_CURRENT: return "Constant Current";
+    case IP2368::ChargeState::CONSTANT_VOLTAGE: return "Constant Voltage";
+    case IP2368::ChargeState::CHARGE_WAIT: return "Charge Wait";
+    case IP2368::ChargeState::CHARGE_FULL: return "Charge Full";
+    case IP2368::ChargeState::CHARGE_TIMEOUT: return "Charge Timeout";
     default: return "Unknown";
   }
 }
 
 const char* toString(IP2368::TypeCMode mode) {
   switch (mode) {
-    case IP2368::UFP: return "UFP (Consumer)";
-    case IP2368::DFP: return "DFP (Power Source)";
-    case IP2368::DRP: return "DRP (Dual Role)";
+    case IP2368::TypeCMode::UFP: return "UFP (Consumer)";
+    case IP2368::TypeCMode::DFP: return "DFP (Power Source)";
+    case IP2368::TypeCMode::DRP: return "DRP (Dual Role)";
     default: return "Unknown";
   }
 }
 
 const char* toString(IP2368::CurrentSettingMode mode) {
   switch (mode) {
-    case IP2368::BatteryCurrent: return "Max Battery Current";
-    case IP2368::InputPower: return "Max Input Power";
+    case IP2368::CurrentSettingMode::BatteryCurrent: return "Max Battery Current";
+    case IP2368::CurrentSettingMode::InputPower: return "Max Input Power";
     default: return "Unknown";
   }
 }
@@ -104,7 +104,7 @@ void loop() {
            chip.isPowerOrCurrentSettingEnabled() ? "EN" : "Disabled" );
 
   // Добавление данных в буфер в зависимости от режима
-  if (chip.getPowerOrCurrentSettingMode() == IP2368::InputPower) {
+  if (chip.getPowerOrCurrentSettingMode() == IP2368::CurrentSettingMode::InputPower) {
     snprintf(buffer + strlen(buffer), sizeof(buffer) - strlen(buffer),
              "(%.2f W)\n",
              toString(chip.getPowerOrCurrentSettingMode()),

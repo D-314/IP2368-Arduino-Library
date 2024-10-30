@@ -1,5 +1,5 @@
 #include <Wire.h>
-#define INT_PIN D4  // Change this to your desired pin
+#define INT_PIN 2  // Change this to your desired pin
 
 #include "IP2368.h"
 
@@ -17,40 +17,46 @@ void loop() {
 
   Serial.print("Battery Percentage [%]: ");
   Serial.println(device.getBatteryPercentage());
+
   Serial.print("Battery Voltage [mV]: ");
   Serial.println(device.getVBATVoltage());
+
+  Serial.print("Is Charging?: ");
   Serial.println(device.isCharging());
+
+  Serial.print("Is Fast Charge?: ");
+  Serial.println(device.isFastCharge());
+
+  Serial.print("Is DisCharging?: ");
   Serial.println(device.isDischarging());
 
   IP2368::ChargeState currentState = device.getChargeState();
-  Serial.println(device.isPDCharging());
-  
   switch (currentState) {
-    case IP2368::STANDBY:
+    case IP2368::ChargeState::STANDBY:
         Serial.println("Standby");
         break;
 
-    case IP2368::TRICKLE_CHARGE:
+    case IP2368::ChargeState::TRICKLE_CHARGE:
         Serial.println("Trickle Charge");
         break;
 
-    case IP2368::CONSTANT_CURRENT:
+    case IP2368::ChargeState::CONSTANT_CURRENT:
         Serial.println("Constant Current Charging");
         break;
 
-    case IP2368::CONSTANT_VOLTAGE:
+    case IP2368::ChargeState::CONSTANT_VOLTAGE:
         Serial.println("Constant Voltage Charging");
         break;
 
-    case IP2368::CHARGE_WAIT:
+    case IP2368::ChargeState::CHARGE_WAIT:
         Serial.println("Charge Waiting (not started or other situations)");
         break;
 
-    case IP2368::CHARGE_FULL:
+    case IP2368::ChargeState::CHARGE_FULL:
         Serial.println("Charge Full");
         break;
 
-    case IP2368::CHARGE_TIMEOUT:
+    case IP2368::ChargeState::CHARGE_TIMEOUT:
         Serial.println("Charge Timeout");
         break;
 
