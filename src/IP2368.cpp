@@ -609,7 +609,7 @@ void IP2368::setCellRechargeThreshold(uint16_t voltageDrop_mV, uint8_t * errorCo
     }
     else
     {
-        regValue = voltageDrop_mV / 100;
+        regValue = voltageDrop_mV / 50;
     }
 
     uint8_t currentValue = readRegister(IP2368_REG_SYS_CTL8, errorCode) & 0xF3;
@@ -620,7 +620,7 @@ uint16_t IP2368::getCellRechargeThreshold(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
     uint8_t value = (readRegister(IP2368_REG_SYS_CTL8, errorCode) >> 2) & 0x03;
-    return value * 100 + 100;
+    return (value * 50);
 }
 
 // SYS_CTL9
@@ -682,9 +682,9 @@ void IP2368::setLowBatteryVoltage(uint16_t voltage_mV, uint8_t * errorCode)
     {
         voltage_mV = baseVoltage;
     }
-    else if (voltage_mV > baseVoltage + stepVoltage * 3)
+    else if (voltage_mV > (baseVoltage + stepVoltage * 4))
     {
-        voltage_mV = baseVoltage + stepVoltage * 3;
+        voltage_mV = (baseVoltage + stepVoltage * 4);
     }
 
     voltageSetting = (voltage_mV - baseVoltage) / stepVoltage;
