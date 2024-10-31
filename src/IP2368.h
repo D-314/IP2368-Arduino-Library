@@ -169,14 +169,14 @@ public:
 
     // SYS_CTL0
 
-    void enableCharger(bool enable, uint8_t * errorCode = nullptr);
-    void enableVbusSinkCtrl(bool enable, uint8_t * errorCode = nullptr);
-    void enableVbusSinkSCP(bool enable, uint8_t * errorCode = nullptr);
-    void enableVbusSinkPD(bool enable, uint8_t * errorCode = nullptr);
-    void enableVbusSinkDPdM(bool enable, uint8_t * errorCode = nullptr);
+    void enableCharger(bool enable = true, uint8_t * errorCode = nullptr);
+    void enableVbusSinkCtrl(bool enable = true, uint8_t * errorCode = nullptr);
+    void enableVbusSinkSCP(bool enable = true, uint8_t * errorCode = nullptr);
+    void enableVbusSinkPD(bool enable = true, uint8_t * errorCode = nullptr);
+    void enableVbusSinkDPdM(bool enable = true, uint8_t * errorCode = nullptr);
     void enableINTLow(bool enable, uint8_t * errorCode = nullptr);
-    void ResetMCU(bool enable, uint8_t * errorCode = nullptr);
-    void enableLoadOTP(bool enable, uint8_t * errorCode = nullptr);
+    void ResetMCU(bool enable = true, uint8_t * errorCode = nullptr);
+    void enableLoadOTP(bool enable = true, uint8_t * errorCode = nullptr);
 
     // SYS_CTL1
 
@@ -206,13 +206,13 @@ public:
 
     // SYS_CTL7
 
-    void setTrickleChargeCurrent(uint16_t current, uint8_t * errorCode = nullptr);
+    void setTrickleChargeCurrent(uint16_t current = 200, uint8_t * errorCode = nullptr);
     void setTrickleChargeVoltage(uint16_t voltage_mv, uint8_t * errorCode = nullptr);
-    void setChargeTimeout(ChargeTimeout timeout, uint8_t * errorCode = nullptr);
+    void setChargeTimeout(ChargeTimeout timeout = ChargeTimeout::H36, uint8_t * errorCode = nullptr);
 
     // SYS_CTL8
 
-    void setChargeStopCurrent(uint16_t current, uint8_t * errorCode = nullptr);
+    void setChargeStopCurrent(uint16_t current = 100, uint8_t * errorCode = nullptr);
     void setCellRechargeThreshold(uint16_t voltageDrop_mV, uint8_t * errorCode = nullptr);
 
     // SYS_CTL9
@@ -223,41 +223,41 @@ public:
 
     // SYS_CTL10
 
-    void setLowBatteryVoltage(uint16_t threshold_mV, uint8_t * errorCode = nullptr);
+    void setLowBatteryVoltage(uint16_t voltage_mV, uint8_t * errorCode = nullptr);
 
     // SYS_CTL11
 
-    void setOutputFeatures(bool enableDcDcOutput, bool enableVbusSrcDPdM, bool enableVbusSrcPd, bool enableVbusSrcSCP, uint8_t * errorCode = nullptr);
+    void setOutputFeatures(bool enableDcDcOutput = true, bool enableVbusSrcDPdM = true, bool enableVbusSrcPd = true, bool enableVbusSrcSCP = true, uint8_t * errorCode = nullptr);
 
     // SYS_CTL12
 
-    void setMaxOutputPower(Vbus1OutputPower power, uint8_t * errorCode = nullptr);
+    void setMaxOutputPower(Vbus1OutputPower power = Vbus1OutputPower::W100, uint8_t * errorCode = nullptr);
 
     // TypeC_CTL8
-    void setTypeCMode(TypeCMode mode, uint8_t * errorCode = nullptr);
+    void setTypeCMode(TypeCMode mode = TypeCMode::DRP, uint8_t * errorCode = nullptr);
 
     // TypeC_CTL9
 
-    void enablePdoCurrentOutputSet(bool en5VPdoIset, bool en5VPdo3A, bool en9VPdoIset,
-                                   bool en12VPdoIset, bool en15VPdoIset, bool en20VPdoIset,
-                                   bool enPps1PdoIset, bool enPps2PdoIset, uint8_t * errorCode = nullptr);
+    void enablePdoCurrentOutputSet(bool en5VPdoIset = true, bool en5VPdo3A = true, bool en9VPdoIset = true,
+                                   bool en12VPdoIset = true, bool en15VPdoIset = true, bool en20VPdoIset = true,
+                                   bool enPps1PdoIset = true, bool enPps2PdoIset = true, uint8_t * errorCode = nullptr);
 
     // TypeC_CTL10 - TypeC_CTL14
 
-    void setPDOCurrent5V(uint16_t current_mA, uint8_t * errorCode = nullptr);
-    void setPDOCurrent9V(uint16_t current_mA, uint8_t * errorCode = nullptr);
-    void setPDOCurrent12V(uint16_t current_mA, uint8_t * errorCode = nullptr);
-    void setPDOCurrent15V(uint16_t current_mA, uint8_t * errorCode = nullptr);
-    void setPDOCurrent20V(uint16_t current_mA, uint8_t * errorCode = nullptr);
+    void setPDOCurrent5V(uint16_t current_mA = 3000, uint8_t * errorCode = nullptr);
+    void setPDOCurrent9V(uint16_t current_mA = 3000, uint8_t * errorCode = nullptr);
+    void setPDOCurrent12V(uint16_t current_mA = 3000, uint8_t * errorCode = nullptr);
+    void setPDOCurrent15V(uint16_t current_mA = 3000, uint8_t * errorCode = nullptr);
+    void setPDOCurrent20V(uint16_t current_mA = 5000, uint8_t * errorCode = nullptr);
 
     // TypeC_CTL23 - TypeC_CTL24
 
-    void setPDOCurrentPPS1(uint16_t current_mA, uint8_t * errorCode = nullptr);
-    void setPDOCurrentPPS2(uint16_t current_mA, uint8_t * errorCode = nullptr);
+    void setPDOCurrentPPS1(uint16_t current_mA = 3000, uint8_t * errorCode = nullptr);
+    void setPDOCurrentPPS2(uint16_t current_mA = 3000, uint8_t * errorCode = nullptr);
 
     // TypeC_CTL17
 
-    void enableSrcPdo(bool en9VPdo, bool en12VPdo, bool en15VPdo, bool en20VPdo, bool enPps1Pdo, bool enPps2Pdo, uint8_t * errorCode = nullptr);
+    void enableSrcPdo(bool en9VPdo = true, bool en12VPdo = true, bool en15VPdo = true, bool en20VPdo = true, bool enPps1Pdo = true, bool enPps2Pdo = true, uint8_t * errorCode = nullptr);
 
     // SOC_CAP_DATA
 
