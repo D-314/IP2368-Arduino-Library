@@ -1,17 +1,17 @@
-# IP2368 Arduino Library
+# IP2366/IP2368 Arduino Library
 
-An Arduino library for interfacing with the IP2368 IC, which provides functionalities for reading and managing charging states, battery percentage, and more.
+An Arduino library for interfacing with the IP2366/IP2368 IC, which provides functionalities for reading and managing charging states, battery percentage, and more.
 
 ## Description
 
-![IP2368 Preview](assets/img/IP2368_preview.png)
+| IP2368 | IP2366 |
+|---|---|
+| ![IP2368 Preview](assets/img/IP2368_preview.png) | ![IP2368 Preview](assets/img/IP2366_preview.png) |
 
-The IP2368 is a charge management IC that communicates via I2C. This library offers basic functionality for reading and writing register data to control and monitor charging parameters such as battery voltage, current charge level, charging status, and the fast charging profile used, among others.
+The IP2366/IP2368 is a charge management ICs that communicates via I2C. This library offers functionality for reading and writing register data to control and monitor charging parameters such as battery voltage, current charge level, charging status, and the fast charging profile used, among others.
 
-Please note that the functions involving register writing have not been fully tested yet. These include setting the device mode to sink (slave)/source (master) or both simultaneously, maximum input/output current/voltage/power, pre-charging (trickle charging), stopping charge, etc.
-
-### Special Attention
-When the IP2368 enters sleep mode, you need to output a HIGH signal on the INT pin. After about 100ms, the IC will wake up and resume I2C communication. If the IC goes to sleep, I2C communication will error out (NACK received when transmitting the address).
+> [!NOTE]  
+> Functions involving register writing have not been fully tested yet. These include setting the device mode to sink (slave)/source (master) or both simultaneously, maximum input/output current/voltage/power, pre-charging (trickle charging), stopping charge, etc.
 
 ## Preparation
 
@@ -23,7 +23,10 @@ You need to remove resistors R15 and R16. LEDs D1-D4 can also be removed as they
 It should look like this:
 ![IP2368 Soldered Wires](assets/img/IP2368_soldered_wires.png)
 
-The INT pin can be connected to the ground to prevent the IP2368 from entering the sleep state.
+For the IP2366 you can find instruictions at [#4](https://github.com/D-314/IP2368-Arduino-Library/issues/4#issuecomment-2453653145)
+
+> [!CAUTION]  
+> When the chip enters sleep mode, you need to output a HIGH signal on the INT pin. After about 100ms, the IC will wake up and resume I2C communication. If the IC goes to sleep, I2C communication will error out (NACK received when transmitting the address).
 
 ## Usage
 
@@ -31,73 +34,6 @@ All functions are divided into is/enable for boolean operations and get/set for 
 
 Note that sometimes to set a value, you first need to enable it with an `enable___Set(true);` function.
 
-<details> <summary>Example</summary>
-  
-```c++
-#include <Wire.h>
-#define INT_PIN D4  // Change this to your desired pin
-
-#include "IP2368.h"
-
-IP2368 device;
-
-void setup() {
-  Serial.begin(9600);
-  device.begin();
-  pinMode(INT_PIN, OUTPUT);
-}
-
-void loop() {
-  digitalWrite(INT_PIN, HIGH); // Keep awake
-  delay(110);
-
-  Serial.print("Battery Percentage [%]: ");
-  Serial.println(device.getBatteryPercentage());
-  Serial.print("Battery Voltage [mV]: ");
-  Serial.println(device.getVBATVoltage());
-  Serial.println(device.isCharging());
-  Serial.println(device.isDischarging());
-
-  IP2368::ChargeState currentState = device.getChargeState();
-  Serial.println(device.isPDCharging());
-  
-  switch (currentState) {
-    case IP2368::STANDBY:
-        Serial.println("Standby");
-        break;
-
-    case IP2368::TRICKLE_CHARGE:
-        Serial.println("Trickle Charge");
-        break;
-
-    case IP2368::CONSTANT_CURRENT:
-        Serial.println("Constant Current Charging");
-        break;
-
-    case IP2368::CONSTANT_VOLTAGE:
-        Serial.println("Constant Voltage Charging");
-        break;
-
-    case IP2368::CHARGE_WAIT:
-        Serial.println("Charge Waiting (not started or other situations)");
-        break;
-
-    case IP2368::CHARGE_FULL:
-        Serial.println("Charge Full");
-        break;
-
-    case IP2368::CHARGE_TIMEOUT:
-        Serial.println("Charge Timeout");
-        break;
-
-    default:
-        Serial.println("Unknown Charge State");
-        break;
-  }
-
-  delay(5000);
-}
-
-```
-
-</details>
+> [!CAUTION]  
+> The I2C of IP236x supports a maximum communication frequency of 250k. Considering the clock
+deviation, it is recommended that the MCU's I2C communication clock use 100k-200k;
