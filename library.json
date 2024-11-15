@@ -1,6 +1,6 @@
 {
   "name":"IP2368",
-  "description":"A library for controlling and monitoring the IP2368 charging IC via I2C.",
+  "description":"A library for controlling and monitoring the IP2366/IP2368 charging IC via I2C.",
   "keywords":"power control,charge,power delivery, quick charge, ",
   "authors":
   {
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/D-314/IP2368-Arduino-Library.git"
   },
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "frameworks": "arduino",
   "platforms": "*",
