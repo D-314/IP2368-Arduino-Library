@@ -442,7 +442,7 @@ void IP2368::setMaxOutputPower(Vbus1OutputPower power, uint8_t * errorCode)
 IP2368::Vbus1OutputPower IP2368::getMaxOutputPower(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return static_cast<Vbus1OutputPower>((readRegister(IP2368_REG_SYS_CTL12, errorCode) >> 5) & 0x03); 
+    return static_cast<Vbus1OutputPower>((readRegister(IP2368_REG_SYS_CTL12, errorCode) >> 5) & 0x07); 
 }
 
 // SYS_CTL10

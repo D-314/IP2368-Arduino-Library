@@ -191,7 +191,7 @@ void IP2366::setMaxOutputPower(Vbus1OutputPower power, uint8_t * errorCode)
 IP2366::Vbus1OutputPower IP2366::getMaxOutputPower(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return static_cast<Vbus1OutputPower>((readRegister(IP2366_REG_SYS_CTL12, errorCode) >> 5) & 0x03); 
+    return static_cast<Vbus1OutputPower>((readRegister(IP2366_REG_SYS_CTL12, errorCode) >> 5) & 0x07); 
 }
 
 // SELECT_PDO
