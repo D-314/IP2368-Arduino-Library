@@ -1,4 +1,4 @@
-# IP2366/IP2368 Arduino Library
+# IP236x Arduino Library
 
 An Arduino library for interfacing with the IP2366/IP2368 IC, which provides functionalities for reading and managing charging states, battery percentage, and more.
 
