@@ -509,35 +509,35 @@ bool IP2368::isVbusMosStateOpen(uint8_t * errorCode)
 uint16_t IP2368::getChargeInputCurrent(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return (((uint16_t)readRegister(IP2368_REG_IVbus_Sink_IADC_DAT1, errorCode) << 8) | (uint16_t)readRegister(IP2368_REG_IVbus_Sink_IADC_DAT0, errorCode));
+    return (((uint16_t)readRegister(IP2368_REG_IVbus_Sink_IADC_DAT0, errorCode)) | ((uint16_t)readRegister(IP2368_REG_IVbus_Sink_IADC_DAT1, errorCode) << 8));
 }
 
 uint16_t IP2368::getDischargeOutputCurrent(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return (((uint16_t)readRegister(IP2368_REG_IVbus_Src_IADC_DAT1, errorCode) << 8) | (uint16_t)readRegister(IP2368_REG_IVbus_Src_IADC_DAT0, errorCode));
+    return (((uint16_t)readRegister(IP2368_REG_IVbus_Src_IADC_DAT0, errorCode)) | ((uint16_t)readRegister(IP2368_REG_IVbus_Src_IADC_DAT1, errorCode) << 8));
 }
 
 uint16_t IP2368::getCurrentSettingVoltage(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return ADC_TO_MV(((uint16_t)readRegister(IP2368_REG_VGPIO1_Iset_DAT1, errorCode) << 8) | (uint16_t)readRegister(IP2368_REG_VGPIO1_Iset_DAT0, errorCode));
+    return ADC_TO_MV(((uint16_t)readRegister(IP2368_REG_VGPIO1_Iset_DAT0, errorCode)) | ((uint16_t)readRegister(IP2368_REG_VGPIO1_Iset_DAT1, errorCode) << 8));
 }
 
 uint16_t IP2368::getVoltageSettingVoltage(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return ADC_TO_MV(((uint16_t)readRegister(IP2368_REG_VGPIO2_Vset_DAT1, errorCode) << 8) | (uint16_t)readRegister(IP2368_REG_VGPIO2_Vset_DAT0, errorCode));
+    return ADC_TO_MV(((uint16_t)readRegister(IP2368_REG_VGPIO2_Vset_DAT0, errorCode)) | ((uint16_t)readRegister(IP2368_REG_VGPIO2_Vset_DAT1, errorCode) << 8));
 }
 
 uint16_t IP2368::getFCAPVoltage(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return ADC_TO_MV(((uint16_t)readRegister(IP2368_REG_VGPIO3_FCAP_DAT1, errorCode) << 8) | (uint16_t)readRegister(IP2368_REG_VGPIO3_FCAP_DAT0, errorCode));
+    return ADC_TO_MV(((uint16_t)readRegister(IP2368_REG_VGPIO3_FCAP_DAT0, errorCode)) | ((uint16_t)readRegister(IP2368_REG_VGPIO3_FCAP_DAT1, errorCode) << 8));
 }
 
 uint16_t IP2368::getBatteryCountVoltage(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return ADC_TO_MV(((uint16_t)readRegister(IP2368_REG_VGPIO4_BATNUM_DAT1, errorCode) << 8) | (uint16_t)readRegister(IP2368_REG_VGPIO4_BATNUM_DAT0, errorCode));
+    return ADC_TO_MV(((uint16_t)readRegister(IP2368_REG_VGPIO4_BATNUM_DAT0, errorCode)) | ((uint16_t)readRegister(IP2368_REG_VGPIO4_BATNUM_DAT1, errorCode) << 8));
 }

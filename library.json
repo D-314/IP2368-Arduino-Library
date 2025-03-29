@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/D-314/IP2368-Arduino-Library.git"
   },
-  "version": "1.2.2",
+  "version": "1.2.3",
   "license": "MIT",
   "frameworks": "arduino",
   "platforms": "*",

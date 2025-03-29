@@ -761,31 +761,31 @@ bool IP236x::isVsysShortCircuitDt(uint8_t * errorCode)
 uint16_t IP236x::getVBATVoltage(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return (((uint16_t)readRegister(IP236x_REG_BATVADC_DAT1, errorCode) << 8) | (uint16_t)readRegister(IP236x_REG_BATVADC_DAT0, errorCode));
+    return (((uint16_t)readRegister(IP236x_REG_BATVADC_DAT0, errorCode)) | ((uint16_t)readRegister(IP236x_REG_BATVADC_DAT1, errorCode) << 8));
 }
 
 uint16_t IP236x::getVsysVoltage(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return (((uint16_t)readRegister(IP236x_REG_VsysVADC_DAT1, errorCode) << 8) | (uint16_t)readRegister(IP236x_REG_VsysVADC_DAT0, errorCode));
+    return (((uint16_t)readRegister(IP236x_REG_VsysVADC_DAT0, errorCode)) | ((uint16_t)readRegister(IP236x_REG_VsysVADC_DAT1, errorCode) << 8));
 }
 
 uint16_t IP236x::getBATCurrent(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return (((uint16_t)readRegister(IP236x_REG_IBATIADC_DAT1, errorCode) << 8) | (uint16_t)readRegister(IP236x_REG_IBATIADC_DAT0, errorCode));
+    return (((uint16_t)readRegister(IP236x_REG_IBATIADC_DAT0, errorCode)) | ((uint16_t)readRegister(IP236x_REG_IBATIADC_DAT1, errorCode) << 8));
 }
 
 uint16_t IP236x::getVsysCurrent(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return (((uint16_t)readRegister(IP236x_REG_IVsys_IADC_DAT1, errorCode) << 8) | (uint16_t)readRegister(IP236x_REG_ISYS_IADC_DAT0, errorCode));
+    return (((uint16_t)readRegister(IP236x_REG_ISYS_IADC_DAT0, errorCode)) | ((uint16_t)readRegister(IP236x_REG_IVsys_IADC_DAT1, errorCode) << 8));
 }
 
 uint32_t IP236x::getVsysPower(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return (((uint32_t)readRegister(IP236x_REG_Vsys_POW_DAT1, errorCode) << 8) | (uint32_t)readRegister(IP236x_REG_Vsys_POW_DAT0, errorCode));
+    return (((uint32_t)readRegister(IP236x_REG_Vsys_POW_DAT0, errorCode)) | ((uint32_t)readRegister(IP236x_REG_Vsys_POW_DAT1, errorCode) << 8));
 }
 
 bool IP236x::isOverHeat(uint8_t * errorCode)
@@ -799,5 +799,5 @@ bool IP236x::isOverHeat(uint8_t * errorCode)
 uint16_t IP236x::getNTCVoltage(uint8_t * errorCode)
 {
     if (errorCode != nullptr) *errorCode = 0; // reset error code
-    return ADC_TO_MV(((uint16_t)readRegister(IP236x_REG_VGPIO0_NTC_DAT1, errorCode) << 8) | (uint16_t)readRegister(IP236x_REG_VGPIO0_NTC_DAT0, errorCode));
+    return ADC_TO_MV(((uint16_t)readRegister(IP236x_REG_VGPIO0_NTC_DAT0, errorCode)) | ((uint16_t)readRegister(IP236x_REG_VGPIO0_NTC_DAT1, errorCode) << 8));
 }
